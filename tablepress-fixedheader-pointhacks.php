@@ -313,7 +313,7 @@ class TablePress_DataTables_FixedHeader {
 
 	public static function all_datatables_commands( $commands ) {
 
-		$commands = "$('head').append('<style>.tablepress.fixedHeader-floating,.tablepress.fixedHeader-locked{position:fixed!important}</style>');\n" . $commands;
+		$commands = "$('head').append('<style>.ph-fixedHeader-wrap{position:fixed;top:60px;overflow:hidden;}</style>');\n" . $commands;
 
 		return $commands;
 

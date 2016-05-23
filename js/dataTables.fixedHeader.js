@@ -45,13 +45,16 @@
  */
 
 
-
-
-
 (function(window, document, undefined) {
 
 
-
+// Scroll wrapper configuration
+var parent 		= document.getElementsByClassName('table-responsive')[0];
+var wrapper 	= document.createElement('div');
+var wrapper_width 	= document.getElementsByClassName('entry-content')[0].offsetWidth;
+wrapper.style.width = wrapper_width + "px";
+wrapper.setAttribute('class', 'ph-fixedHeader-wrap');
+parent.insertBefore(wrapper, parent.firstChild);
 
 
 var factory = function( $, DataTable ) {
@@ -434,7 +437,7 @@ $.extend( FixedHeader.prototype, {
 
 				.append( itemElement )
 
-				.appendTo( '.table-responsive' );
+				.appendTo( '.ph-fixedHeader-wrap' );
 
 
 
@@ -1133,8 +1136,12 @@ else if ( jQuery && !jQuery.fn.dataTable.FixedHeader ) {
 }
 
 
-
-
-
 })(window, document);
 
+// Scrolling Function Initiation
+jQuery(document).ready(function($) {
+	jQuery('.table-responsive').scroll(function(){
+		var moveLeft = jQuery('.table-responsive').scrollLeft();
+		jQuery('.fixedHeader-floating').css('margin-left', -moveLeft+'px');
+	})
+});
