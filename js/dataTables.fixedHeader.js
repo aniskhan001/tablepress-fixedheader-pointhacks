@@ -51,8 +51,8 @@
 // Scroll wrapper configuration
 var parent 		= document.getElementsByClassName('table-responsive')[0];
 var wrapper 	= document.createElement('div');
-var wrapper_width 	= document.getElementsByClassName('entry-content')[0].offsetWidth;
-wrapper.style.width = wrapper_width + "px";
+var wrapper_width	 	= document.getElementsByClassName('entry-content')[0].offsetWidth;
+wrapper.style.width 	= wrapper_width + "px";
 wrapper.setAttribute('class', 'ph-fixedHeader-wrap');
 parent.insertBefore(wrapper, parent.firstChild);
 
@@ -275,15 +275,15 @@ $.extend( FixedHeader.prototype, {
 
 	 */
 
-	update: function ()
+	// update: function ()
 
-	{
+	// {
 
-		this._positions();
+	// 	this._positions();
 
-		this._scroll( true );
+	// 	this._scroll( true );
 
-	},
+	// },
 
 
 
@@ -358,6 +358,7 @@ $.extend( FixedHeader.prototype, {
 		this._positions();
 
 		this._scroll();
+		// this._matchWidths( itemDom.placeholder, itemDom.floating );
 
 	},
 
@@ -451,7 +452,7 @@ $.extend( FixedHeader.prototype, {
 
 			// Clone widths
 
-			this._matchWidths( itemDom.placeholder, itemDom.floating );
+			// this._matchWidths( itemDom.placeholder, itemDom.floating );
 
 		}
 
@@ -481,35 +482,35 @@ $.extend( FixedHeader.prototype, {
 
 	 */
 
-	_matchWidths: function ( from, to ) {
+	// _matchWidths: function ( from, to ) {
 
-		var type = function ( name ) {
+	// 	var type = function ( name ) {
 
-			var toWidths = $(name, from)
+	// 		var toWidths = $(name, from)
 
-				.map( function () {
+	// 			.map( function () {
 
-					return $(this).width();
+	// 				return $(this).width();
 
-				} ).toArray();
-
-
-
-			$(name, to).each( function ( i ) {
-
-				$(this).width( toWidths[i] );
-
-			} );
-
-		};
+	// 			} ).toArray();
 
 
 
-		type( 'th' );
+	// 		$(name, to).each( function ( i ) {
 
-		type( 'td' );
+	// 			$(this).width( toWidths[i] );
 
-	},
+	// 		} );
+
+	// 	};
+
+
+
+	// 	type( 'th' );
+
+	// 	type( 'td' );
+
+	// },
 
 
 
@@ -563,29 +564,29 @@ $.extend( FixedHeader.prototype, {
 
 	 */
 
-	_horizontal: function ( item, scrollLeft )
+	// _horizontal: function ( item, scrollLeft )
 
-	{
+	// {
 
-		var itemDom = this.dom[ item ];
+	// 	var itemDom = this.dom[ item ];
 
-		var position = this.s.position;
+	// 	var position = this.s.position;
 
-		var lastScrollLeft = this.s.scrollLeft;
-
-
-
-		if ( itemDom.floating && lastScrollLeft[ item ] !== scrollLeft ) {
-
-			itemDom.floating.css( 'left', position.left - scrollLeft );
+	// 	var lastScrollLeft = this.s.scrollLeft;
 
 
 
-			lastScrollLeft[ item ] = scrollLeft;
+	// 	if ( itemDom.floating && lastScrollLeft[ item ] !== scrollLeft ) {
 
-		}
+	// 		itemDom.floating.css( 'left', position.left - scrollLeft );
 
-	},
+
+
+	// 		lastScrollLeft[ item ] = scrollLeft;
+
+	// 	}
+
+	// },
 
 
 
@@ -683,9 +684,9 @@ $.extend( FixedHeader.prototype, {
 
 				.addClass( 'fixedHeader-floating' )
 
-				.css( item === 'header' ? 'top' : 'bottom', this.c[item+'Offset'] )
+				// .css( item === 'header' ? 'top' : 'bottom', this.c[item+'Offset'] )
 
-				.css( 'left', position.left+'px' )
+				// .css( 'left', position.left+'px' )
 
 				.css( 'width', position.width+'px' );
 
@@ -711,9 +712,9 @@ $.extend( FixedHeader.prototype, {
 
 				.addClass( 'fixedHeader-locked' )
 
-				.css( 'top', position.tfootTop - position.theadHeight )
+				// .css( 'top', position.tfootTop - position.theadHeight )
 
-				.css( 'left', position.left+'px' )
+				// .css( 'left', position.left+'px' )
 
 				.css( 'width', position.width+'px' );
 
@@ -731,9 +732,9 @@ $.extend( FixedHeader.prototype, {
 
 				.addClass( 'fixedHeader-locked' )
 
-				.css( 'top', position.tbodyTop )
+				// .css( 'top', position.tbodyTop )
 
-				.css( 'left', position.left+'px' )
+				// .css( 'left', position.left+'px' )
 
 				.css( 'width', position.width+'px' );
 
@@ -901,7 +902,7 @@ $.extend( FixedHeader.prototype, {
 
 
 
-			this._horizontal( 'header', windowLeft );
+			// this._horizontal( 'header', windowLeft );
 
 		}
 
@@ -1141,7 +1142,12 @@ else if ( jQuery && !jQuery.fn.dataTable.FixedHeader ) {
 // Scrolling Function Initiation
 jQuery(document).ready(function($) {
 	jQuery('.table-responsive').scroll(function(){
+		var parent 		= document.getElementsByClassName('table-responsive')[0];
+		var p_width		= parent.scrollWidth;
 		var moveLeft = jQuery('.table-responsive').scrollLeft();
-		jQuery('.fixedHeader-floating').css('margin-left', -moveLeft+'px');
-	})
+		jQuery('.fixedHeader-floating').css({
+			'margin-left' 	: -moveLeft+'px',
+			'width'			: p_width+'px'
+		});
+	});
 });
