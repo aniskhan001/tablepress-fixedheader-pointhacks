@@ -41,13 +41,9 @@ Original Author URI: https://tobias.baethge.com/
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
 
-
 // Init TablePress_DataTables_FixedHeader.
 
 add_action( 'tablepress_run', array( 'TablePress_DataTables_FixedHeader', 'init' ) );
-
-TablePress_DataTables_FixedHeader::init_update_checker();
-
 
 
 /**
@@ -92,24 +88,7 @@ class TablePress_DataTables_FixedHeader {
 
 	 */
 
-	protected static $version = '1.3';
-
-
-
-	/**
-
-	 * Instance of the Plugin Update Checker class.
-
-	 *
-
-	 * @var PluginUpdateChecker
-
-	 * @since 1.3
-
-	 */
-
-	protected static $plugin_update_checker;
-
+	protected static $version = '1.0';
 
 
 	/**
@@ -131,33 +110,6 @@ class TablePress_DataTables_FixedHeader {
 		add_filter( 'tablepress_datatables_parameters', array( __CLASS__, 'datatables_parameters' ), 10, 4 );
 
 	}
-
-
-
-	/**
-
-	 * Load and initialize the plugin update checker.
-
-	 *
-
-	 * @since 1.3
-
-	 */
-
-	public static function init_update_checker() {
-
-		require_once dirname( __FILE__ ) . '/libraries/plugin-update-checker.php';
-
-		self::$plugin_update_checker = PucFactory::buildUpdateChecker(
-
-			'https://tablepress.org/downloads/extensions/update-check/' . self::$slug . '.json',
-
-			__FILE__
-
-		);
-
-	}
-
 
 
 	/**
