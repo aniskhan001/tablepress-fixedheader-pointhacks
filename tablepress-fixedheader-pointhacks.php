@@ -188,10 +188,10 @@ class TablePress_DataTables_FixedHeader {
 
 			// Register the JS files.
 
-			// $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-			// $url = plugins_url( "js/dataTables.fixedHeader{$suffix}.js", __FILE__ );
-			$url = plugins_url( "js/dataTables.fixedHeader.js", __FILE__ );
+			$url = plugins_url( "js/dataTables.fixedHeader{$suffix}.js", __FILE__ );
+			// $url = plugins_url( "js/dataTables.fixedHeader.js", __FILE__ );
 
 			wp_enqueue_script( self::$slug, $url, array( 'tablepress-datatables' ), self::$version, true );
 

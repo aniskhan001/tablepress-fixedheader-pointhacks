@@ -1,15 +1,17 @@
-/*! FixedHeader 3.0.1-dev
+/*! PointHacks FixedHeader 1.0
  * ©2009-2015 SpryMedia Ltd - datatables.net/license
+ * Modified by - Anisuzzaman Khan
  */
 
 /**
- * @summary     FixedHeader
+ * @summary     PointHacks FixedHeader
  * @description Fix a table's header or footer, so it is always visible while
  *              scrolling
- * @version     3.0.1-dev
+ * @version     1.0
  * @file        dataTables.fixedHeader.js
- * @author      SpryMedia Ltd (www.sprymedia.co.uk)
- * @contact     www.sprymedia.co.uk/contact
+ * @author      Anisuzzaman Khan
+ * @contact     http://aniskhan001.me
+ * @auth orgn	SpryMedia Ltd (www.sprymedia.co.uk)
  * @copyright   Copyright 2009-2015 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
