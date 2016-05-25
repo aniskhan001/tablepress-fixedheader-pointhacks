@@ -1,6 +1,7 @@
 /*! FixedHeader 3.0.1-dev
  * ©2009-2015 SpryMedia Ltd - datatables.net/license
  */
+
 /**
  * @summary     FixedHeader
  * @description Fix a table's header or footer, so it is always visible while
@@ -129,17 +130,8 @@ $.extend( FixedHeader.prototype, {
 		if ( this.c.footer && this.dom.tfoot.length ) {
 			this._modeChange( 'in-place', 'footer', true );
 		}
-		// this.update();
 	},
-	
-	/**
-	 * Recalculate the position of the fixed elements and force them into place
-	 */
-	// update: function ()
-	// {
-	// 	this._positions();
-	// 	this._scroll( true );
-	// },
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Constructor
 	 */
@@ -163,16 +155,14 @@ $.extend( FixedHeader.prototype, {
 				that.s.position.windowHeight = $(window).height();
 				// that.update();
 			} );
-		// dt.on( 'column-reorder.dt.dtfc column-visibility.dt.dtfc draw.dt.dtfc', function () {
-		// 	that.update();
-		// } );
+
 		dt.on( 'destroy.dtfc', function () {
 			dt.off( '.dtfc' );
 			$(window).off( that.s.namespace );
 		} );
+
 		this._positions();
 		this._scroll();
-		// this._matchWidths( itemDom.placeholder, itemDom.floating );
 	},
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -205,47 +195,22 @@ $.extend( FixedHeader.prototype, {
 				itemDom.floating.children().detach();
 				itemDom.floating.remove();
 			}
+
 			itemDom.floating = $( dt.table().node().cloneNode( false ) )
 				.removeAttr( 'id' )
 				.append( itemElement )
-				
 				.css({
 					'margin-left'	: -parent.scrollLeft+'px',
 					'width'			: parent.scrollWidth+'px'
 				})
 				.appendTo( '.ph-fixedHeader-wrap' );
+
 			// Insert a fake thead/tfoot into the DataTable to stop it jumping around
 			itemDom.placeholder = itemElement.clone( false );
 			itemDom.host.append( itemDom.placeholder );
-			// Clone widths
-			// this._matchWidths( itemDom.placeholder, itemDom.floating );
 		}
 	},
 
-	/**
-	 * Copy widths from the cells in one element to another. This is required
-	 * for the footer as the footer in the main table takes its sizes from the
-	 * header columns. That isn't present in the footer so to have it still
-	 * align correctly, the sizes need to be copied over. It is also required
-	 * for the header when auto width is not enabled
-	 *
-	 * @param  {jQuery} from Copy widths from
-	 * @param  {jQuery} to   Copy widths to
-	 * @private
-	 */
-	// _matchWidths: function ( from, to ) {
-	// 	var type = function ( name ) {
-	// 		var toWidths = $(name, from)
-	// 			.map( function () {
-	// 				return $(this).width();
-	// 			} ).toArray();
-	// 		$(name, to).each( function ( i ) {
-	// 			$(this).width( toWidths[i] );
-	// 		} );
-	// 	};
-	// 	type( 'th' );
-	// 	type( 'td' );
-	// },
 	/**
 	 * Remove assigned widths from the cells in an element. This is required
 	 * when inserting the footer back into the main table so the size is defined
@@ -263,24 +228,6 @@ $.extend( FixedHeader.prototype, {
 		}
 	},
 
-	/**
-	 * Reposition the floating elements to take account of horizontal page
-	 * scroll
-	 *
-	 * @param  {string} item       The `header` or `footer`
-	 * @param  {int}    scrollLeft Document scrollLeft
-	 * @private
-	 */
-	// _horizontal: function ( item, scrollLeft )
-	// {
-	// 	var itemDom = this.dom[ item ];
-	// 	var position = this.s.position;
-	// 	var lastScrollLeft = this.s.scrollLeft;
-	// 	if ( itemDom.floating && lastScrollLeft[ item ] !== scrollLeft ) {
-	// 		itemDom.floating.css( 'left', position.left - scrollLeft );
-	// 		lastScrollLeft[ item ] = scrollLeft;
-	// 	}
-	// },
 	/**
 	 * Change from one display mode to another. Each fixed item can be in one
 	 * of:
@@ -310,6 +257,7 @@ $.extend( FixedHeader.prototype, {
 				itemDom.placeholder = null;
 			}
 			this._unsize( item );
+
 			itemDom.host.append( item === 'header' ?
 				this.dom.thead :
 				this.dom.tfoot
@@ -324,27 +272,24 @@ $.extend( FixedHeader.prototype, {
 			this._clone( item, forceChange );
 			itemDom.floating
 				.addClass( 'fixedHeader-floating' )
-				// .css( item === 'header' ? 'top' : 'bottom', this.c[item+'Offset'] )
-				// .css( 'left', position.left+'px' )
 				.css( 'width', position.width+'px' );
+
 			if ( item === 'footer' ) {
 				itemDom.floating.css( 'top', '' );
 			}
 		} else if ( mode === 'below' ) { // only used for the header
 			// Fix the position of the floating header at base of the table body
 			this._clone( item, forceChange );
+
 			itemDom.floating
 				.addClass( 'fixedHeader-locked' )
-				// .css( 'top', position.tfootTop - position.theadHeight )
-				// .css( 'left', position.left+'px' )
 				.css( 'width', position.width+'px' );
 		} else if ( mode === 'above' ) { // only used for the footer
 			// Fix the position of the floating footer at top of the table body
 			this._clone( item, forceChange );
+
 			itemDom.floating
 				.addClass( 'fixedHeader-locked' )
-				// .css( 'top', position.tbodyTop )
-				// .css( 'left', position.left+'px' )
 				.css( 'width', position.width+'px' );
 		}
 
@@ -373,7 +318,7 @@ $.extend( FixedHeader.prototype, {
 		var thead = tableNode.children('thead');
 		var tfoot = tableNode.children('tfoot');
 		var tbody = dom.tbody;
-		
+
 		position.visible = tableNode.is(':visible');
 		position.width = tableNode.outerWidth();
 		position.left = tableNode.offset().left;
@@ -489,14 +434,6 @@ $(document).on( 'init.dt.dtb', function (e, settings, json) {
 
 // DataTables API methods
 DataTable.Api.register( 'fixedHeader()', function () {} );
-// DataTable.Api.register( 'fixedHeader.adjust()', function () {
-// 	return this.iterator( 'table', function ( ctx ) {
-// 		var fh = ctx._fixedHeader;
-// 		if ( fh ) {
-// 			fh.update();
-// 		}
-// 	} );
-// } );
 
 DataTable.Api.register( 'fixedHeader.enable()', function ( flag ) {
 	return this.iterator( 'table', function ( ctx ) {
@@ -535,8 +472,8 @@ if ( typeof define === 'function' && define.amd ) {
 // Scrolling Function Initiation
 jQuery(document).ready(function($) {
 	parent = jQuery('.table-responsive')[0];
-	jQuery('.table-responsive').scroll(function(){
-		// var parent 		= document.getElementsByClassName('table-responsive')[0];
+
+	jQuery('.table-responsive').scroll( function() {
 		var p_width		= parent.scrollWidth;
 		var moveLeft 	= parent.scrollLeft;
 		jQuery('.fixedHeader-floating').css({
