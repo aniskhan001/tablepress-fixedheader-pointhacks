@@ -263,7 +263,7 @@ $.extend( FixedHeader.prototype, {
 
 
 
-		this.update();
+		// this.update();
 
 	},
 
@@ -331,17 +331,17 @@ $.extend( FixedHeader.prototype, {
 
 				that.s.position.windowHeight = $(window).height();
 
-				that.update();
+				// that.update();
 
 			} );
 
 
 
-		dt.on( 'column-reorder.dt.dtfc column-visibility.dt.dtfc draw.dt.dtfc', function () {
+		// dt.on( 'column-reorder.dt.dtfc column-visibility.dt.dtfc draw.dt.dtfc', function () {
 
-			that.update();
+		// 	that.update();
 
-		} );
+		// } );
 
 
 
@@ -437,6 +437,11 @@ $.extend( FixedHeader.prototype, {
 				.removeAttr( 'id' )
 
 				.append( itemElement )
+				
+				.css({
+					'margin-left'	: -parent.scrollLeft+'px',
+					'width'			: parent.scrollWidth+'px'
+				})
 
 				.appendTo( '.ph-fixedHeader-wrap' );
 
@@ -1042,23 +1047,23 @@ DataTable.Api.register( 'fixedHeader()', function () {} );
 
 
 
-DataTable.Api.register( 'fixedHeader.adjust()', function () {
+// DataTable.Api.register( 'fixedHeader.adjust()', function () {
 
-	return this.iterator( 'table', function ( ctx ) {
+// 	return this.iterator( 'table', function ( ctx ) {
 
-		var fh = ctx._fixedHeader;
+// 		var fh = ctx._fixedHeader;
 
 
 
-		if ( fh ) {
+// 		if ( fh ) {
 
-			fh.update();
+// 			fh.update();
 
-		}
+// 		}
 
-	} );
+// 	} );
 
-} );
+// } );
 
 
 
@@ -1141,10 +1146,12 @@ else if ( jQuery && !jQuery.fn.dataTable.FixedHeader ) {
 
 // Scrolling Function Initiation
 jQuery(document).ready(function($) {
+	parent = jQuery('.table-responsive')[0];
+
 	jQuery('.table-responsive').scroll(function(){
-		var parent 		= document.getElementsByClassName('table-responsive')[0];
+		// var parent 		= document.getElementsByClassName('table-responsive')[0];
 		var p_width		= parent.scrollWidth;
-		var moveLeft = jQuery('.table-responsive').scrollLeft();
+		var moveLeft 	= parent.scrollLeft;
 		jQuery('.fixedHeader-floating').css({
 			'margin-left' 	: -moveLeft+'px',
 			'width'			: p_width+'px'
