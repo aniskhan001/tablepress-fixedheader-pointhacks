@@ -322,7 +322,7 @@ $.extend( FixedHeader.prototype, {
 		var tbody = dom.tbody;
 
 		position.visible = tableNode.is(':visible');
-		position.width = tableNode.outerWidth();
+		position.width = parent.scrollWidth;
 		position.left = tableNode.offset().left;
 		position.theadTop = thead.offset().top;
 		position.tbodyTop = tbody.offset().top;
@@ -471,7 +471,20 @@ if ( typeof define === 'function' && define.amd ) {
 
 })(window, document);
 
-// Scrolling Function Initiation
+
+
+// Dynamic Width adjust and scroll function initiation
+
+var widths,
+getColWidth = function() {
+	widths = [];
+	setTimeout(function() {
+		jQuery('#tablepress-master .row-hover tr.even').first().find('td').each(function(){
+			widths.push(jQuery(this).width());
+		});
+	}, 50);
+};
+
 jQuery(document).ready(function($) {
 	parent = jQuery('.table-responsive')[0];
 
@@ -480,7 +493,20 @@ jQuery(document).ready(function($) {
 		var moveLeft 	= parent.scrollLeft;
 		jQuery('.fixedHeader-floating').css({
 			'margin-left' 	: -moveLeft+'px',
-			'width'			: p_width+'px'
 		});
 	});
+});
+
+jQuery('#tablepress-master').on('DOMSubtreeModified', function(){
+	getColWidth();
+});
+
+jQuery('.ph-fixedHeader-wrap').on('DOMNodeInserted', 'table', function() {
+	var i = 0, curr = this;
+
+	setTimeout(function(){
+		jQuery(curr).find('tr.row-1 th').each(function(){
+			jQuery(this).width(widths[i++]-10);
+		});
+	}, 100);
 });
